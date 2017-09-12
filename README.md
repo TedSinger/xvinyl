@@ -13,5 +13,7 @@ I've set keybindings in my desktop environment:
 * Super+Down -> xvinyl down
 * Super+Up -> xvinyl up
 
+Requires `wmctrl` and `xdotool`
+
 TODO:
 address shameful lack of testing
