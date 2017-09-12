@@ -1,5 +1,5 @@
 # xvinyl 
-`xvinyl` helps fake a tiling window manager
+A utility for a non-tiling window manager to fake some tiling actions
 
 Call:
 
@@ -13,4 +13,5 @@ I've set keybindings in my desktop environment:
 * Super+Down -> xvinyl down
 * Super+Up -> xvinyl up
 
-This is my first Go project - as I learn more, I will improve the project structure and distribution. Currently, you have to checkout the files and compile yourself.
+TODO:
+address shameful lack of testing
