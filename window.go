@@ -31,9 +31,10 @@ type Window struct {
 
 
 func (w Window) Select() {
-	exec.Command("xdotool", "windowraise", strconv.Itoa(w.Wid)).Run()
-	exec.Command("xdotool", "windowfocus", strconv.Itoa(w.Wid)).Run()
-	exec.Command("xdotool", "windowactivate", strconv.Itoa(w.Wid)).Run()
+	cmds := []string{"windowraise", "windowfocus", "windowactivate"}
+	for _, c := range cmds {
+		exec.Command("xdotool", c, strconv.Itoa(w.Wid)).Run()	
+	}
 }
 
 // as a monadic nomad, i use a list of zero-or-one element to denote Option[T]
