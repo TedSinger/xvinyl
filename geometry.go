@@ -44,9 +44,9 @@ func (w Window) getNextBy (windows *[]Window, xdir int, ydir int) (Window) {
 func (w Window) getRandomOverlap(windows *[]Window) Window {
 	choices := make([]Window, len(*windows))
 	i := 0
-	for _, wi := range *windows {
-		if w != wi && w.HighOverlap(wi)  {
-			choices[i] = wi
+	for _, other := range *windows {
+		if w.Desktop == other.Desktop && w != other && w.HighOverlap(other)  {
+			choices[i] = other
 			i += 1
 		}
 	}
