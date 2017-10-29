@@ -18,6 +18,7 @@ func GetActiveWid() int {
 type Window struct {
 	Wid int
 
+	Desktop int
 	Xmin  int
 	Width int
 	Xmax  int
@@ -82,6 +83,7 @@ func makeWindow(wmctrl_out_line string) []Window {
 	}
 
 	wid, err0 := strconv.ParseInt(strings.TrimLeft(components[0], "x0"), 16, 64)
+	desktop, err1 := strconv.Atoi(components[1])
 	xmin, err1 := strconv.Atoi(components[3])
 	ymin, err2 := strconv.Atoi(components[4])
 	width, err3 := strconv.Atoi(components[5])
@@ -98,7 +100,7 @@ func makeWindow(wmctrl_out_line string) []Window {
 		fmt.Println(wmctrl_out_line)
 		return []Window{}
 	} else {
-		w := Window{int(wid), xmin, width, xmin + width, xmin + width/2, ymin, height, ymin + height, ymin + height/2}
+		w := Window{int(wid), desktop, xmin, width, xmin + width, xmin + width/2, ymin, height, ymin + height, ymin + height/2}
 		return []Window{w}
 	}
 

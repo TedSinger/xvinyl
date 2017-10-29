@@ -29,10 +29,12 @@ func (w Window) getNextBy (windows *[]Window, xdir int, ydir int) (Window) {
 	minSeen := MaxInt
 	var ret Window = w
 	for _, other := range *windows {
-		f := w.distanceScore(other, xdir, ydir)
-		if f < minSeen {
-			minSeen = f
-			ret = other
+		if w.Desktop == other.Desktop {
+			f := w.distanceScore(other, xdir, ydir)
+			if f < minSeen {
+				minSeen = f
+				ret = other
+			}
 		}
 	}
 	return ret
