@@ -18,6 +18,7 @@ func getTestWindow(t *testing.T) Window {
 func TestMakeWindow2(t *testing.T) {
 	w := getTestWindow(t)
 	assert.Equal(t, w.Wid, 73400323, "Wrong Wid")
+	assert.Equal(t, w.Desktop, 0, "Wrong Desktop")
 	assert.Equal(t, w.Xmin, 990, "Wrong Xmin")
 	assert.Equal(t, w.Width, 939, "Wrong Width")
 	assert.Equal(t, w.Xmax, 990 + 939, "Wrong Xmax")
