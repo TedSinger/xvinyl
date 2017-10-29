@@ -33,6 +33,8 @@ func main() {
 			nextWindow = active.getNextBy(&windows, 0, -1)
 		case os.Args[1] == "down":
 			nextWindow = active.getNextBy(&windows, 0, 1)
+		case os.Args[1] == "overlap":
+			nextWindow = active.getRandomOverlap(&windows)
 		case true:
 			printUsage()
 			return

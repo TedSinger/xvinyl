@@ -1,5 +1,8 @@
 package main
 
+import "math/rand"
+import "time"
+
 const MaxInt int = 2147483648
 
 func (from Window) distanceScore(to Window, xdir int, ydir int) int {
@@ -33,4 +36,22 @@ func (w Window) getNextBy (windows *[]Window, xdir int, ydir int) (Window) {
 		}
 	}
 	return ret
+}
+
+
+func (w Window) getRandomOverlap(windows *[]Window) Window {
+	choices := make([]Window, len(*windows))
+	i := 0
+	for _, wi := range *windows {
+		if w != wi && w.HighOverlap(wi)  {
+			choices[i] = wi
+			i += 1
+		}
+	}
+	if i == 0 {
+		return w
+	} else {
+		rand.Seed(int64(time.Now().Nanosecond()))
+		return choices[rand.Intn(i)]
+	}
 }

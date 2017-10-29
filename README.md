@@ -16,9 +16,11 @@ I have keybindings in my desktop environment:
 * Super+Down -> xvinyl down
 * Super+Up -> xvinyl up
 
+`$ xvinyl overlap`
+
+will select a random window that overlaps the current window. I bind this to Alt+Tab
+
 Requires `wmctrl` and `xdotool`
 
 TODO:
 * Include current visibility status in selection criteria
-* Add placement of windows
-* Add switching between colocated windows

@@ -37,6 +37,32 @@ func (w Window) Select() {
 	}
 }
 
+func (w Window) Area() int {
+	return w.Width * w.Height
+}
+
+func max(a int, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+func min(a int, b int) int {
+	return -max(-a,-b)
+}
+
+func (w Window) HighOverlap(other Window) bool {
+	overlapThreshold := 0.48
+	xmin := max(w.Xmin, other.Xmin)
+	xmax := min(w.Xmax, other.Xmax)
+	ymin := max(w.Ymin, other.Ymin)
+	ymax := min(w.Ymax, other.Ymax)
+
+	overlapArea := float64((xmax - xmin) * (ymax - ymin))
+	return overlapArea / float64(w.Area()) > overlapThreshold || overlapArea / float64(other.Area()) > overlapThreshold
+}
+
 // as a monadic nomad, i use a list of zero-or-one element to denote Option[T]
 func makeWindow(wmctrl_out_line string) []Window {
 	parts := strings.Split(wmctrl_out_line, " ")
