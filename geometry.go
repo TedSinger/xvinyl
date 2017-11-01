@@ -17,7 +17,7 @@ func (from Window) distanceScore(to Window, xdir int, ydir int) int {
 		other = -other
 	}
 
-	if dot > other {
+	if dot > other && !from.HighOverlap(to) {
 		return ydiff*ydiff + xdiff*xdiff
 	} else {
 		return MaxInt
