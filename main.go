@@ -46,5 +46,5 @@ func main() {
 }
 
 func printUsage () () {
-	fmt.Println("usage: xvinyl <direction>\n        left, right, up, or down")
+	fmt.Println("usage: xvinyl <direction>\n        left, right, up, down, or overlap")
 }
