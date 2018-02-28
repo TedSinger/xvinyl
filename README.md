@@ -8,7 +8,7 @@ Call:
 
 `$ xvinyl left`
 
-and the next window over to the left will be focused, raised, and activated. Similar with right, up, or down.
+and the next window over to the left will be focused and raised. Likewise with right, up, or down.
 
 I have keybindings in my desktop environment:
 * Super+Left -> xvinyl left
@@ -18,9 +18,9 @@ I have keybindings in my desktop environment:
 
 `$ xvinyl overlap`
 
-will select a random window that overlaps the current window. I bind this to Alt+Tab
+will select a random window that overlaps the current window. I bind this to Alt+Tab. This works for me since I don't often put windows hiding behind each other. If you do, don't set this keybinding.
 
-Requires `wmctrl` and `xdotool`
+Requires `wmctrl`
 
 TODO:
 * Include current visibility status in selection criteria

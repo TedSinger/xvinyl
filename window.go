@@ -1,22 +1,22 @@
 package main
 
-import "os/exec"
-import "strings"
-import "strconv"
-import "fmt"
+import (
+	"os/exec"
+	"strings"
+	"strconv"
+	"fmt"
+	"github.com/BurntSushi/xgb/xproto"
+	"github.com/BurntSushi/xgbutil/ewmh"
+	"github.com/BurntSushi/xgbutil"
+)
 
-func GetActiveWid() int {
-	c := exec.Command("xdotool", "getactivewindow")
-	out, err := c.Output()
-	if err != nil {
-		fmt.Println("`xdotool` failed. Is it installed?")
-		return 0
-	}
-	wid, _ := strconv.Atoi(strings.Trim(string(out), "\n"))
-	return wid
+func GetActiveWid(X *xgbutil.XUtil) xproto.Window {
+	w, _ := ewmh.ActiveWindowGet(X)
+	return w
 }
+
 type Window struct {
-	Wid int
+	Wid xproto.Window
 
 	Desktop int
 	Xmin  int
@@ -31,11 +31,8 @@ type Window struct {
 }
 
 
-func (w Window) Select() {
-	cmds := []string{"windowraise", "windowfocus", "windowactivate"}
-	for _, c := range cmds {
-		exec.Command("xdotool", c, strconv.Itoa(w.Wid)).Run()	
-	}
+func (w Window) Select(X *xgbutil.XUtil) {
+	ewmh.ActiveWindowReq(X, w.Wid)
 }
 
 func (w Window) Area() int {
@@ -100,7 +97,7 @@ func makeWindow(wmctrl_out_line string) []Window {
 		fmt.Println(wmctrl_out_line)
 		return []Window{}
 	} else {
-		w := Window{int(wid), desktop, xmin, width, xmin + width, xmin + width/2, ymin, height, ymin + height, ymin + height/2}
+		w := Window{xproto.Window(wid), desktop, xmin, width, xmin + width, xmin + width/2, ymin, height, ymin + height, ymin + height/2}
 		return []Window{w}
 	}
 
@@ -115,24 +112,19 @@ func GetWindows() []Window {
 	}
 	lines := strings.Split(strings.Trim(string(out), "\n"), "\n")
 
-	// does Go have an easier way to concat things?
-	windows := make([]Window, len(lines))
-	i := 0
+	windows := make([]Window, 0, len(lines))
 	for _, line := range lines {
-		for _, w := range makeWindow(line) {
-			windows[i] = w
-			i += 1
-		}
+		windows = append(windows, makeWindow(line)...)
 	}
-	return windows[0:i]
+	return windows
 }
 
-func GetActiveWindow(wid int, windows *[]Window) ([]Window) {
+func GetActiveWindow(wid xproto.Window, windows *[]Window) ([]Window) {
 	for _, w := range *windows {
 		if w.Wid == wid {
 			return []Window{w}
 		}
 	}
-	fmt.Println("Could not find the active window with WID=" + strconv.Itoa(wid))
+	fmt.Println("Could not find the active window with WID=" + strconv.Itoa(int(wid)))
 	return []Window{}
 }

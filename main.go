@@ -3,6 +3,7 @@ package main
 
 import "fmt"
 import "os"
+import "github.com/BurntSushi/xgbutil"
 
 func main() {
 	if len(os.Args) != 2 {
@@ -14,7 +15,12 @@ func main() {
 		fmt.Println("Unrecoverable error - couldn't find any Windows")
 		return
 	}
-	wid := GetActiveWid()
+	X, err := xgbutil.NewConn()
+	if err != nil {
+		fmt.Println("Unrecoverable error - couldn't connect to X")
+		return	
+	}
+	wid := GetActiveWid(X)
 	if wid == 0 {
 		fmt.Println("Unrecoverable error - couldn't determine the active WID")
 		return
@@ -39,7 +45,7 @@ func main() {
 			printUsage()
 			return
 		}
-		nextWindow.Select()
+		nextWindow.Select(X)
 	} else {
 		fmt.Println("Unrecoverable error - couldn't find any Window with the active WID")
 	}
