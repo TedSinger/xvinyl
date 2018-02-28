@@ -22,7 +22,10 @@ will select a random window that overlaps the current window. I bind this to Alt
 
 Requires `wmctrl`
 
-Build:
+## Build:
+
 $ go get github.com/TedSinger/xvinyl
+
 $ cd ~/go/src/github.com/TedSinger/xvinyl
+
 $ vgo build
