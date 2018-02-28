@@ -1,10 +1,10 @@
 # xvinyl 
 A window-switcher utility for a non-tiling window manager to fake some tiling actions
 
-###Motivation:
+### Motivation:
 I am not hardcore enough to use a *real* tiling window manager, but I like laying out my windows in a simple grid and switching by using arrow keys. 
 
-##Usage:
+## Usage:
 
 Call:
 
