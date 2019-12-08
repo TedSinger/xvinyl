@@ -3,7 +3,8 @@ package main
 import "math/rand"
 import "time"
 
-const MaxInt int = 2147483648
+const MaxUint = ^uint(0)
+const MaxInt int = int(MaxUint >> 1)
 
 func (from Window) distanceScore(to Window, xdir int, ydir int) int {
 	// If `to` is mostly in the correct direction, return the square distance between `from` and `to`
